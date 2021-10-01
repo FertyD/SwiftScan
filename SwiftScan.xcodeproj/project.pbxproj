@@ -59,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		04167F112227BC3B004DE18F /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		4425A24D27070322008782FC /* SwiftScan.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftScan.podspec; sourceTree = "<group>"; };
 		96148F2E21B50BB500BA639B /* ScanAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAnimation.swift; sourceTree = "<group>"; };
 		96148F3021B519A300BA639B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		96538B5821B6454A00470AD7 /* GenerateCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateCodeVC.swift; sourceTree = "<group>"; };
@@ -116,6 +117,7 @@
 		969C480621AFB96000ECA382 = {
 			isa = PBXGroup;
 			children = (
+				4425A24D27070322008782FC /* SwiftScan.podspec */,
 				969C481121AFB96000ECA382 /* SwiftScan */,
 				969C482A21AFBD1100ECA382 /* SwiftScanner */,
 				969C481021AFB96000ECA382 /* Products */,
