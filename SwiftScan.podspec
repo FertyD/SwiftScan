@@ -7,9 +7,9 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/sereja93/SwiftScan"
   s.license      = "MIT"
   s.authors      = "s.ivanov"
-  s.ios.deployment_target = "12.0"
   s.source       = { :git => "https://github.com/sereja93/SwiftScan.git", :tag => "1.2.2" }
   s.source_files = "SwiftScanner/**/*.{swift,h}"
-
-  s.swift_versions = ['4.0', '4.2', '5.0', '5.1']
+  s.platform     = :ios, "12.0"
+  s.requires_arc = true
+  s.swift_versions = '5.0'
 end

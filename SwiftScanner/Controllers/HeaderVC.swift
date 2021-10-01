@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol HeaderViewControllerDelegate: class{
+public protocol HeaderViewControllerDelegate: AnyObject{
     
     func didClickedCloseButton()
     
