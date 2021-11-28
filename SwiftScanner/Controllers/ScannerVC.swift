@@ -124,6 +124,10 @@ extension ScannerVC{
             
         }
         
+        customStyles()
+    }
+
+    public func customStyles() {
         
     }
     
