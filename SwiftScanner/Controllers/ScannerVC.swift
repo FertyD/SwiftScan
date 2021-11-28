@@ -58,6 +58,7 @@ public class ScannerVC: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(permissionLabel)
+        self.view.addSubview(closeBtn)
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized: // The user has previously granted access to the camera.
             self.setupUI()
