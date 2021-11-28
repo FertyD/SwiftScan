@@ -21,7 +21,7 @@ public class ScannerVC: UIViewController {
     
     public lazy var closeBtn: UIImageView = UIImageView()
     public lazy var permissionLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = "test"
