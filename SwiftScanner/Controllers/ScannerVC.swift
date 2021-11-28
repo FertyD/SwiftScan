@@ -98,7 +98,7 @@ public class ScannerVC: UIViewController {
 // MARK: - CustomMethod
 extension ScannerVC{
     
-    func setupUI() {
+    public func setupUI() {
         
         if title == nil {
             title = "扫一扫"
