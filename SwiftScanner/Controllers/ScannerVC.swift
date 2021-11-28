@@ -11,32 +11,39 @@ import AVFoundation
 
 public class ScannerVC: UIViewController {
     
+    public lazy var cameraViewController: CameraVC = .init()
     
-    public lazy var headerViewController:HeaderVC = .init()
-    
-    public lazy var cameraViewController:CameraVC = .init()
-    
-    /// 动画样式
     public var animationStyle:ScanAnimationStyle = .default{
         didSet{
             cameraViewController.animationStyle = animationStyle
         }
     }
     
-    // 扫描框颜色
-    public var scannerColor:UIColor = .red{
+    public lazy var closeBtn: UIImageView = UIImageView()
+    public lazy var permissionLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = "test"
+        label.isHidden = true
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(permissionClick(tapGestureRecognizer:)))
+        label.addGestureRecognizer(tapGesture)
+        return label
+    }()
+    
+    public var scannerColor: UIColor = .red{
         didSet{
             cameraViewController.scannerColor = scannerColor
         }
     }
     
-    public var scannerTips:String = ""{
+    public var scannerTips:String = "" {
         didSet{
            cameraViewController.scanView.tips = scannerTips
         }
     }
     
-    /// `AVCaptureMetadataOutput` metadata object types.
     public var metadata = AVMetadataObject.ObjectType.metadata {
         didSet{
             cameraViewController.metadata = metadata
@@ -47,36 +54,44 @@ public class ScannerVC: UIViewController {
     
     public var errorBlock:((Error)->())?
     
-    
-    /// 设置标题
-    public override var title: String?{
         
-        didSet{
-            
-            if navigationController == nil {
-                headerViewController.title = title
-            }
-        }
-        
-    }
-    
-    
-    /// 设置Present模式时关闭按钮的图片
-    public var closeImage: UIImage?{
-        
-        didSet{
-            
-            if navigationController == nil {
-                headerViewController.closeImage = closeImage ?? UIImage()
-            }
-        }
-        
-    }
-    
     override public func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(permissionLabel)
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized: // The user has previously granted access to the camera.
+            self.setupUI()
+            
+        case .notDetermined: // The user has not yet been asked for camera access.
+            permissionLabel.isHidden = false
+        case .denied: // The user has previously denied access.
+            permissionLabel.isHidden = false
+        case .restricted: // The user can't grant access due to restrictions.
+            permissionLabel.isHidden = false
+        default:
+            permissionLabel.isHidden = false
+        }
         
-        setupUI()
+//        setupUI()
+        
+    }
+    
+    @objc
+    func permissionClick(tapGestureRecognizer: UITapGestureRecognizer) {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted {
+                    DispatchQueue.main.async {
+                    self.setupUI()
+                    }
+                }
+            }
+        case .denied:
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+        default:
+            return
+        }
         
     }
     
@@ -96,9 +111,10 @@ public class ScannerVC: UIViewController {
 
 
 // MARK: - CustomMethod
-extension ScannerVC{
+extension ScannerVC {
     
     public func setupUI() {
+        permissionLabel.isHidden = true
         
         if title == nil {
             title = "扫一扫"
@@ -106,7 +122,6 @@ extension ScannerVC{
         
         view.backgroundColor = .black
         
-        headerViewController.delegate = self
         
         cameraViewController.metadata = metadata
         
@@ -115,21 +130,8 @@ extension ScannerVC{
         cameraViewController.delegate = self
         
         add(cameraViewController)
-        
-        if navigationController == nil {
-            
-            add(headerViewController)
-            
-            view.bringSubviewToFront(headerViewController.view)
-            
-        }
-        
-        customStyles()
     }
 
-    public func customStyles() {
-        
-    }
     
     
     public func setupScanner(_ title:String? = nil, _ color:UIColor? = nil, _ style:ScanAnimationStyle? = nil, _ tips:String? = nil, _ success:@escaping ((String)->())){
@@ -158,24 +160,7 @@ extension ScannerVC{
 }
 
 
-
-
-// MARK: - HeaderViewControllerDelegate
-extension ScannerVC:HeaderViewControllerDelegate{
-    
-    
-    /// 点击关闭
-    public func didClickedCloseButton() {
-        
-        dismiss(animated: true, completion: nil)
-        
-    }
-    
-}
-
-
-
-extension ScannerVC:CameraViewControllerDelegate{
+extension ScannerVC: CameraViewControllerDelegate{
     
     func didOutput(_ code: String) {
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-let bundle = Bundle(for: HeaderVC.self)
+let bundle = Bundle(for: CameraVC.self)
 
 let screenWidth = UIScreen.main.bounds.width
 
@@ -18,11 +18,8 @@ let statusHeight = UIApplication.shared.statusBarFrame.height
 
 
 public func imageNamed(_ name:String)-> UIImage{
-    
-    guard let image = UIImage(named: name, in: bundle, compatibleWith: nil) else{
+    guard let image = UIImage(named: name, in: bundle, compatibleWith: nil) else {
         return UIImage()
     }
-    
     return image
-    
 }
