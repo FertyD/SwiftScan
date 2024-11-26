@@ -5,6 +5,7 @@
 //  Created by Jason on 2018/11/30.
 //  Copyright © 2018 Jason. All rights reserved.
 //
+//  Edited by FertyD on 2024/11/26
 
 import UIKit
 import AVFoundation
@@ -267,7 +268,9 @@ extension CameraVC {
             return
         }
         
-        captureSession.startRunning()
+        DispatchQueue.global().async {
+            self.captureSession.startRunning()
+                }
         
     }
     
@@ -278,8 +281,10 @@ extension CameraVC {
         guard !Platform.isSimulator else {
             return
         }
-        
-        captureSession.stopRunning()
+       
+        DispatchQueue.global().async {
+            self.captureSession.stopRunning()
+                }
         
     }
     
@@ -294,11 +299,11 @@ extension CameraVC:AVCaptureMetadataOutputObjectsDelegate{
     
     public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
-        stopCapturing()
-        
         guard let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject else {
             return
         }
+        
+        stopCapturing()
         
         delegate?.didOutput(object.stringValue ?? "")
         
