@@ -157,7 +157,10 @@ extension ScannerVC {
         
     }
     
-    
+    public func stopScanner(){
+        cameraViewController.stopCapturing()
+    }
+        
 }
 
 
