@@ -303,8 +303,6 @@ extension CameraVC:AVCaptureMetadataOutputObjectsDelegate{
             return
         }
         
-        stopCapturing()
-        
         delegate?.didOutput(object.stringValue ?? "")
         
     }
