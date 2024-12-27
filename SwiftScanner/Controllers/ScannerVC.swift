@@ -54,7 +54,11 @@ public class ScannerVC: UIViewController {
     
     public var errorBlock:((Error)->())?
     
-        
+    override public func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopScanner()
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(permissionLabel)
