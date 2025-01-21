@@ -118,13 +118,15 @@ extension ScanView{
         
         tipsLbl.textAlignment = .center
         
-        tipsLbl.font = UIFont.systemFont(ofSize: 13)
+        tipsLbl.font = UIFont.systemFont(ofSize: 17)
+        
+        tipsLbl.numberOfLines = 2
         
         addSubview(tipsLbl)
         
         tipsLbl.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([tipsLbl.centerXAnchor.constraint(equalTo: self.centerXAnchor),tipsLbl.topAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 20),tipsLbl.widthAnchor.constraint(equalToConstant: screenWidth),tipsLbl.heightAnchor.constraint(equalToConstant: 14)])
+        NSLayoutConstraint.activate([tipsLbl.centerXAnchor.constraint(equalTo: self.centerXAnchor),tipsLbl.bottomAnchor.constraint(equalTo: contentView.topAnchor, constant: -60),tipsLbl.widthAnchor.constraint(equalToConstant: screenWidth),tipsLbl.heightAnchor.constraint(equalToConstant: 50)])
         
     }
     
